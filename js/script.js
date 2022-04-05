@@ -8,6 +8,7 @@ const guildWarcraftLogsUri = "https://www.warcraftlogs.com/guild/{0}/{1}/{2}"; /
 const guildRaiderIoUri = "https://raider.io/guilds/{0}/{1}/{2}";
 
 const twitchStreamUri = "https://www.twitch.tv/{0}";
+const twitchStreamFrame = "https://player.twitch.tv/?channel={0}&enableExtensions=true&muted=true&parent=twitch.tv&player=popout&quality=chunked&volume=0";
 
 let bodyTitle = "Guilde &#60;" + guildName + "&#62; <br />" + region.toUpperCase() + " " + realm + " - World of Warcraft";
 $("#bodyTitle").append("<h1>" + bodyTitle + "<h1/>");
@@ -82,22 +83,21 @@ else {
 if (youtubeLinks !== null || twitterLinks !== null || facebookLinks !== null) {
 
     if (youtubeLinks !== null)
-        $("#socialLinks").append("<p><a class=\"font-warcraft\" href=\"" + youtubeLinks + "\" target=\"_blank\"><img src=\"img/youtube-icon.png\" alt=\"Youtube\"/>&nbsp;Youtube</a></p>");
+        $("#socialLinks").append("<a class=\"font-warcraft\" href=\"" + youtubeLinks + "\" target=\"_blank\"><img src=\"img/youtube-icon.png\" alt=\"Youtube\"/>&nbsp;Youtube</a>&nbsp;");
 
     if (twitterLinks !== null)
-        $("#socialLinks").append("<p><a class=\"font-warcraft\" href=\"" + twitterLinks + "\" target=\"_blank\"><img src=\"img/twitter-icon.png\" alt=\"Twitter\"/>&nbsp;Twitter</a></p>");
+        $("#socialLinks").append("<a class=\"font-warcraft\" href=\"" + twitterLinks + "\" target=\"_blank\"><img src=\"img/twitter-icon.png\" alt=\"Twitter\"/>&nbsp;Twitter</a>&nbsp;");
 
     if (facebookLinks !== null)
-        $("#socialLinks").append("<p><a class=\"font-warcraft\" href=\"" + facebookLinks + "\" target=\"_blank\"><img src=\"img/facebook-icon.png\" alt=\"Facebook\"/>&nbsp;Facebook</a></p>");
-}
-else {
-    $("#socialLinks").remove();
+        $("#socialLinks").append("<a class=\"font-warcraft\" href=\"" + facebookLinks + "\" target=\"_blank\"><img src=\"img/facebook-icon.png\" alt=\"Facebook\"/>&nbsp;Facebook</a>&nbsp;");
 }
 
 if (twitchStreamers !== null && twitchStreamers.length) {
     twitchStreamers.forEach(streamer => {
-        $("#twitchStreamsLinks").append("<br /><a class=\"font-warcraft\" href=\"" + String.format(twitchStreamUri, streamer) + "\" target=\"_blank\"><img src=\"img/twitch-icon.png\" alt=\"" + streamer + "\" />&nbsp;" + streamer + "<a/>");
+        $("#twitchStreamsLinks").append("<a class=\"font-warcraft\" href=\"" + String.format(twitchStreamUri, streamer) + "\" target=\"_blank\"><img src=\"img/twitch-icon.png\" alt=\"" + streamer + "\" />&nbsp;" + streamer + "<a/>&nbsp;");
     });
+    $("#twitchStreamsLinks").append("<br />");
+    $("#twitchStreamsLinks").append("<br /><iframe width=\"450\" height=\"250\" allowtransparency=\"true\" frameborder=\"0\" src=\"" + String.format(twitchStreamFrame, twitchStreamers[0]) + "\"></iframe>");
 }
 else {
     $("#twitchStreamsLinks").remove();
