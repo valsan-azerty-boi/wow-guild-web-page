@@ -9,7 +9,7 @@ const guildRaiderIoUri = "https://raider.io/guilds/{0}/{1}/{2}";
 
 const twitchStreamUri = "https://www.twitch.tv/{0}";
 
-let bodyTitle = "Guilde " + guildName + "<br />" + region.toUpperCase() + " " + realm + " - World of Warcraft";
+let bodyTitle = "Guilde &#60;" + guildName + "&#62; <br />" + region.toUpperCase() + " " + realm + " - World of Warcraft";
 $("#bodyTitle").append("<h1>" + bodyTitle + "<h1/>");
 
 if (!String.format) {
