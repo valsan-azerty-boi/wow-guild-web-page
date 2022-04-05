@@ -9,8 +9,8 @@ const guildRaiderIoUri = "https://raider.io/guilds/{0}/{1}/{2}";
 
 const twitchStreamUri = "https://www.twitch.tv/{0}";
 
-let bodyTitle = "Guilde " + guildName + " - " + region.toUpperCase() + " " + realm + " - World of Warcraft";
-$("#bodyTitle").append("<h2>" + bodyTitle + "<h2/>");
+let bodyTitle = "Guilde " + guildName + "<br />" + region.toUpperCase() + " " + realm + " - World of Warcraft";
+$("#bodyTitle").append("<h1>" + bodyTitle + "<h1/>");
 
 if (!String.format) {
     String.format = function (format) {
@@ -49,17 +49,17 @@ $(document).ready(function () {
         success: function (result) {
             if (result.raid_progression[raidTier].mythic_bosses_killed > 0) {
                 let progressWidgetPath = String.format(progressWidgetUri, raidTier, region, realm, guildName, "mythic");
-                $('#progressWidgetMode').html("Mythic progress :");
+                $('#progressWidgetMode').html("Progress " + result.raid_progression[raidTier].summary + "<br />(Mythic)");
                 $('#progressWidget').attr('src', progressWidgetPath);
             }
             else if (result.raid_progression[raidTier].heroic_bosses_killed > 0) {
                 let progressWidgetPath = String.format(progressWidgetUri, raidTier, region, realm, guildName, "heroic");
-                $('#progressWidgetMode').html("Heroic progress :");
+                $('#progressWidgetMode').html("Progress " + result.raid_progression[raidTier].summary + "<br />(Héroïque)");
                 $('#progressWidget').attr('src', progressWidgetPath);
             } else {
                 $('#progressWidget')
                 let progressWidgetPath = String.format(progressWidgetUri, raidTier, region, realm, guildName, "normal");
-                $('#progressWidgetMode').html("Normal progress :");
+                $('#progressWidgetMode').html("Progress " + result.raid_progression[raidTier].summary + "<br />(Normal)");
                 $('#progressWidget').attr('src', progressWidgetPath);
             }
         },
@@ -82,22 +82,21 @@ else {
 if (youtubeLinks !== null || twitterLinks !== null || facebookLinks !== null) {
 
     if (youtubeLinks !== null)
-        $("#socialLinks").append("<a href=\"" + youtubeLinks + "\" target=\"_blank\">Youtube</a>");
+        $("#socialLinks").append("<p><a href=\"" + youtubeLinks + "\" target=\"_blank\"><img src=\"img/youtube-icon.png\" alt=\"Youtube\"/>&nbsp;Youtube</a></p>");
 
     if (twitterLinks !== null)
-        $("#socialLinks").append("<a href=\"" + twitterLinks + "\" target=\"_blank\">Twitter</a>");
+        $("#socialLinks").append("<p><a href=\"" + twitterLinks + "\" target=\"_blank\"><img src=\"img/twitter-icon.png\" alt=\"Twitter\"/>&nbsp;Twitter</a></p>");
 
     if (facebookLinks !== null)
-        $("#socialLinks").append("<a href=\"" + facebookLinks + "\" target=\"_blank\">Facebook</a>");
+        $("#socialLinks").append("<p><a href=\"" + facebookLinks + "\" target=\"_blank\"><img src=\"img/facebook-icon.png\" alt=\"Facebook\"/>&nbsp;Facebook</a></p>");
 }
 else {
     $("#socialLinks").remove();
 }
 
 if (twitchStreamers !== null && twitchStreamers.length) {
-    $("#twitchStreamsLinks").append("<p>Nos streamers :</p>");
     twitchStreamers.forEach(streamer => {
-        $("#twitchStreamsLinks").append("<a href=\"" + String.format(twitchStreamUri, streamer) + "\" target=\"_blank\">" + streamer + "<a/>");
+        $("#twitchStreamsLinks").append("<br /><a href=\"" + String.format(twitchStreamUri, streamer) + "\" target=\"_blank\"><img src=\"img/twitch-icon.png\" alt=\"" + streamer + "\" />&nbsp;" + streamer + "<a/>");
     });
 }
 else {
