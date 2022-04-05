@@ -49,17 +49,17 @@ $(document).ready(function () {
         success: function (result) {
             if (result.raid_progression[raidTier].mythic_bosses_killed > 0) {
                 let progressWidgetPath = String.format(progressWidgetUri, raidTier, region, realm, guildName, "mythic");
-                $('#progressWidgetMode').html("Mythic progress");
+                $('#progressWidgetMode').html("Mythic progress :");
                 $('#progressWidget').attr('src', progressWidgetPath);
             }
             else if (result.raid_progression[raidTier].heroic_bosses_killed > 0) {
                 let progressWidgetPath = String.format(progressWidgetUri, raidTier, region, realm, guildName, "heroic");
-                $('#progressWidgetMode').html("Heroic progress");
+                $('#progressWidgetMode').html("Heroic progress :");
                 $('#progressWidget').attr('src', progressWidgetPath);
             } else {
                 $('#progressWidget')
                 let progressWidgetPath = String.format(progressWidgetUri, raidTier, region, realm, guildName, "normal");
-                $('#progressWidgetMode').html("Normal progress");
+                $('#progressWidgetMode').html("Normal progress :");
                 $('#progressWidget').attr('src', progressWidgetPath);
             }
         },
