@@ -82,13 +82,13 @@ else {
 if (youtubeLinks !== null || twitterLinks !== null || facebookLinks !== null) {
 
     if (youtubeLinks !== null)
-        $("#socialLinks").append("<p><a href=\"" + youtubeLinks + "\" target=\"_blank\"><img src=\"img/youtube-icon.png\" alt=\"Youtube\"/>&nbsp;Youtube</a></p>");
+        $("#socialLinks").append("<p><a class=\"font-warcraft\" href=\"" + youtubeLinks + "\" target=\"_blank\"><img src=\"img/youtube-icon.png\" alt=\"Youtube\"/>&nbsp;Youtube</a></p>");
 
     if (twitterLinks !== null)
-        $("#socialLinks").append("<p><a href=\"" + twitterLinks + "\" target=\"_blank\"><img src=\"img/twitter-icon.png\" alt=\"Twitter\"/>&nbsp;Twitter</a></p>");
+        $("#socialLinks").append("<p><a class=\"font-warcraft\" href=\"" + twitterLinks + "\" target=\"_blank\"><img src=\"img/twitter-icon.png\" alt=\"Twitter\"/>&nbsp;Twitter</a></p>");
 
     if (facebookLinks !== null)
-        $("#socialLinks").append("<p><a href=\"" + facebookLinks + "\" target=\"_blank\"><img src=\"img/facebook-icon.png\" alt=\"Facebook\"/>&nbsp;Facebook</a></p>");
+        $("#socialLinks").append("<p><a class=\"font-warcraft\" href=\"" + facebookLinks + "\" target=\"_blank\"><img src=\"img/facebook-icon.png\" alt=\"Facebook\"/>&nbsp;Facebook</a></p>");
 }
 else {
     $("#socialLinks").remove();
@@ -96,7 +96,7 @@ else {
 
 if (twitchStreamers !== null && twitchStreamers.length) {
     twitchStreamers.forEach(streamer => {
-        $("#twitchStreamsLinks").append("<br /><a href=\"" + String.format(twitchStreamUri, streamer) + "\" target=\"_blank\"><img src=\"img/twitch-icon.png\" alt=\"" + streamer + "\" />&nbsp;" + streamer + "<a/>");
+        $("#twitchStreamsLinks").append("<br /><a class=\"font-warcraft\" href=\"" + String.format(twitchStreamUri, streamer) + "\" target=\"_blank\"><img src=\"img/twitch-icon.png\" alt=\"" + streamer + "\" />&nbsp;" + streamer + "<a/>");
     });
 }
 else {

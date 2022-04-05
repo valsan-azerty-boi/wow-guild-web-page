@@ -58,7 +58,8 @@ template {
 }
 
 a {
-    background-color: transparent
+    background-color: transparent;
+    text-decoration: none;
 }
 
 a:active,
@@ -1621,12 +1622,12 @@ a {
 .w3-hover-teal:hover,
 .w3-teal {
     color: #fff !important;
-    background-color: rgb(48, 48, 48) !important
+    background-color: rgb(58, 58, 58) !important
 }
 
 .w3-hover-yellow:hover,
 .w3-yellow {
-    color: #000 !important;
+    color: #fff !important;
     background-color: #575757 !important
 }
 
@@ -1984,4 +1985,16 @@ a {
 .w3-border-pale-blue,
 .w3-hover-border-pale-blue:hover {
     border-color: #e7ffff !important
+}
+
+@font-face {
+    font-family: 'warcraft';
+    font-style: normal;
+    font-weight: 500;
+    src: local('warcraft'), url('https://fonts.cdnfonts.com/s/38753/Warcraft-Yj2j.woff') format('woff');
+}
+
+.font-warcraft {
+    font-family: 'warcraft', sans-serif;
+    font-size: 24px;
 }
