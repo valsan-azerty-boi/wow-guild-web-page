@@ -1622,7 +1622,7 @@ a {
 .w3-hover-teal:hover,
 .w3-teal {
     color: #fff !important;
-    background-color: rgb(58, 58, 58) !important
+    background: url('../img/bg1.jpg');
 }
 
 .w3-hover-yellow:hover,
@@ -1640,7 +1640,7 @@ a {
 .w3-black,
 .w3-hover-black:hover {
     color: #fff !important;
-    background-color: rgb(48, 48, 48) !important
+    background: url('../img/bg2.jpg');
 }
 
 .w3-gray,
