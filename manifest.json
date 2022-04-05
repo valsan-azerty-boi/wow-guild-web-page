@@ -1,6 +1,4 @@
 {
-    "short_name": "Gentil péon",
-    "name": "Gentil péon - EU-Hyjal - Horde - World of Warcraft",
     "start_url": "index.html?source=pwa",
     "scope": "./",
     "icons": [

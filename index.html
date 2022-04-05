@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="maximum-scale=1, minimum-scale=1, width=device-width, initial-scale=1" />
     <title></title>
-    <meta name="title" content="" /> <!-- Set by javascript -->
-    <meta name="description" content="" /> <!-- Set by javascript -->
+    <meta name="title" content="" /> <!-- Set by js -->
+    <meta name="description" content="" /> <!-- Set by js -->
     <meta name="author" content="valsan-azerty-boi" />
     <meta name="robots" content="none" />
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
@@ -24,33 +24,39 @@
 
     <div>
         <div id="bodyTitle">
-            <!-- Set by javascript -->
+            <!-- Set by js -->
+        </div>
+
+        <div id="bodyParagraphs">
+            <!-- Set by js -->
         </div>
 
 
         <div id="discordWidgetDiv">
-            <!-- Need to be activated on discord server parameters-->
+            <!-- Need to be activated on discord server parameters -->
             <iframe id="discordWidget" width="250" height="460" allowtransparency="true" frameborder="0"
                 sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
         </div>
 
-
         <div id="progressWidgetDiv">
             <!-- Need to be activated on Raider.Io guild parameters -->
+            <p id="progressWidgetMode"></p>
             <iframe id="progressWidget" width="380" height="135" allowtransparency="true" frameBorder="0"></iframe>
-
         </div>
 
-
         <div id="guildLinks">
+            <!-- Href set by js -->
             <a id="guildLinksWowArmory" href="" target="_blank">Armurerie World of Warcraft</a>
             <a id="guildLinksWarcraftLogs" href="" target="_blank">WarcraftLogs</a>
             <a id="guildLinksRaiderIo" href="" target="_blank">Raider.io</a>
         </div>
 
+        <div id="socialLinks">
+            <!-- If no social links it disappears -->
+        </div>
 
         <div id="twitchStreamsLinks">
-            <!-- If no streamers it disappears-->
+            <!-- If no streamers it disappears -->
         </div>
 
         <div id="twitch" class="hide">
@@ -63,7 +69,6 @@
     <script src="js/script.js" type="text/javascript"></script>
     <script src="https://player.twitch.tv/js/embed/v1.js" type="text/javascript"></script>
     <script src="js/stream.js" type="text/javascript"></script>
-
 </body>
 
 </html>

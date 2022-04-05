@@ -35,7 +35,12 @@ $('#guildLinksWowArmory').attr('href', String.format(guildWowArmoryUri, region, 
 $('#guildLinksWarcraftLogs').attr('href', String.format(guildWarcraftLogsUri, region, kebabCase(realm), guildName));
 $('#guildLinksRaiderIo').attr('href', String.format(guildRaiderIoUri, region, realm, guildName));
 
-$('#discordWidget').attr('src', String.format(discordWidgetUri, discordId));
+if (discordId !== null) {
+    $('#discordWidget').attr('src', String.format(discordWidgetUri, discordId));
+}
+else {
+    $("#discordWidgetDiv").remove();
+}
 
 $(document).ready(function () {
     $.ajax({
@@ -44,23 +49,52 @@ $(document).ready(function () {
         success: function (result) {
             if (result.raid_progression[raidTier].mythic_bosses_killed > 0) {
                 let progressWidgetPath = String.format(progressWidgetUri, raidTier, region, realm, guildName, "mythic");
+                $('#progressWidgetMode').html("Mythic progress");
                 $('#progressWidget').attr('src', progressWidgetPath);
             }
             else if (result.raid_progression[raidTier].heroic_bosses_killed > 0) {
                 let progressWidgetPath = String.format(progressWidgetUri, raidTier, region, realm, guildName, "heroic");
+                $('#progressWidgetMode').html("Heroic progress");
                 $('#progressWidget').attr('src', progressWidgetPath);
             } else {
+                $('#progressWidget')
                 let progressWidgetPath = String.format(progressWidgetUri, raidTier, region, realm, guildName, "normal");
+                $('#progressWidgetMode').html("Normal progress");
                 $('#progressWidget').attr('src', progressWidgetPath);
             }
         },
         error: function (error) {
             console.log(error);
+            $("#progressWidgetDiv").remove();
         }
     });
 });
 
-if (twitchStreamers.length) {
+if (paragraphs !== null && paragraphs.length) {
+    paragraphs.forEach(p => {
+        $("#bodyParagraphs").append("<p>" + p + "<p/>");
+    });
+}
+else {
+    $("#bodyParagraphs").remove();
+}
+
+if (youtubeLinks !== null || twitterLinks !== null || facebookLinks !== null) {
+
+    if (youtubeLinks !== null)
+        $("#socialLinks").append("<a href=\"" + youtubeLinks + "\" target=\"_blank\">Youtube</a>");
+
+    if (twitterLinks !== null)
+        $("#socialLinks").append("<a href=\"" + twitterLinks + "\" target=\"_blank\">Twitter</a>");
+
+    if (facebookLinks !== null)
+        $("#socialLinks").append("<a href=\"" + facebookLinks + "\" target=\"_blank\">Facebook</a>");
+}
+else {
+    $("#socialLinks").remove();
+}
+
+if (twitchStreamers !== null && twitchStreamers.length) {
     $("#twitchStreamsLinks").append("<p>Nos streamers :</p>");
     twitchStreamers.forEach(streamer => {
         $("#twitchStreamsLinks").append("<a href=\"" + String.format(twitchStreamUri, streamer) + "\" target=\"_blank\">" + streamer + "<a/>");
@@ -69,6 +103,5 @@ if (twitchStreamers.length) {
 else {
     $("#twitchStreamsLinks").remove();
 }
-
 
 document.getElementById("year").innerHTML = new Date().getFullYear();
