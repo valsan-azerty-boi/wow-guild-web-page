@@ -1625,6 +1625,12 @@ a {
     background: url('../img/bg1.jpg');
 }
 
+.w3-hover-teal-reverse:hover,
+.w3-teal-reverse {
+    color: #fff !important;
+    background: url('../img/bg1-reverse.jpg');
+}
+
 .w3-hover-yellow:hover,
 .w3-yellow {
     color: #fff !important;
@@ -1641,6 +1647,12 @@ a {
 .w3-hover-black:hover {
     color: #fff !important;
     background: url('../img/bg2.jpg');
+}
+
+.w3-black-reverse,
+.w3-hover-black-reverse:hover {
+    color: #fff !important;
+    background: url('../img/bg2-reverse.jpg');
 }
 
 .w3-gray,
