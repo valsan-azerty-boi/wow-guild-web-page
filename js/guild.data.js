@@ -7,7 +7,8 @@ const region = "eu";
 const raidTier = "sepulcher-of-the-first-ones";
 const oldRaidTier = [
     "sanctum-of-domination",
-    "castle-nathria"
+    "castle-nathria",
+    "ny-alotha-the-waking-city"
 ]
 
 const paragraphs = [

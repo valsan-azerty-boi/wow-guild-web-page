@@ -59,40 +59,52 @@ $(document).ready(function () {
         url: String.format(RaiderIoApiUri, region, realm, guildName),
         type: "GET",
         success: function (result) {
-            if (result.raid_progression[raidTier].mythic_bosses_killed > 0) {
-                let progressWidgetPath = String.format(progressWidgetUri, raidTier, region, realm, guildName, "mythic");
-                $('#progressWidgetMode').html("Progress " + result.raid_progression[raidTier].summary + "<br />" + capitalize(raidTier.replaceAll('-', ' ')) + "<br />(Mythic)");
-                $('#progressWidget').attr('src', progressWidgetPath);
-                let progressGraphWidgetPath = String.format(progressGraphWidgetUri, raidTier, "mythic", region, realm, guildName,);
-                $('#progressGraphWidget').attr('src', progressGraphWidgetPath);
+            if (result.raid_progression[raidTier] == null) {
+                $('#progressWidgetMode').html("Progress non démarré<br />" + capitalize(raidTier.replaceAll('-', ' ')) + "<br />");
+                $("#progressGraphWidgetDiv").append("Rien à afficher pour l'instant");
             }
-            else if (result.raid_progression[raidTier].heroic_bosses_killed > 0) {
-                let progressWidgetPath = String.format(progressWidgetUri, raidTier, region, realm, guildName, "heroic");
-                $('#progressWidgetMode').html("Progress " + result.raid_progression[raidTier].summary + "<br />" + capitalize(raidTier.replaceAll('-', ' ')) + "<br />(Héroïque)");
-                $('#progressWidget').attr('src', progressWidgetPath);
-                let progressGraphWidgetPath = String.format(progressGraphWidgetUri, raidTier, "heroic", region, realm, guildName,);
-                $('#progressGraphWidget').attr('src', progressGraphWidgetPath);
-            } else {
-                let progressWidgetPath = String.format(progressWidgetUri, raidTier, region, realm, guildName, "normal");
-                $('#progressWidgetMode').html("Progress " + result.raid_progression[raidTier].summary + "<br />" + capitalize(raidTier.replaceAll('-', ' ')) + "<br />(Normal)");
-                $('#progressWidget').attr('src', progressWidgetPath);
-                let progressGraphWidgetPath = String.format(progressGraphWidgetUri, raidTier, "normal", region, realm, guildName,);
-                $('#progressGraphWidget').attr('src', progressGraphWidgetPath);
+            else {
+                if (result.raid_progression[raidTier].mythic_bosses_killed > 0) {
+                    let progressWidgetPath = String.format(progressWidgetUri, raidTier, region, realm, guildName, "mythic");
+                    $('#progressWidgetMode').html("Progress " + result.raid_progression[raidTier].summary + "<br />" + capitalize(raidTier.replaceAll('-', ' ')) + "<br />");
+                    $('#progressWidget').attr('src', progressWidgetPath);
+                    let progressGraphWidgetPath = String.format(progressGraphWidgetUri, raidTier, "mythic", region, realm, guildName,);
+                    $('#progressGraphWidget').attr('src', progressGraphWidgetPath);
+                }
+                else if (result.raid_progression[raidTier].heroic_bosses_killed > 0) {
+                    let progressWidgetPath = String.format(progressWidgetUri, raidTier, region, realm, guildName, "heroic");
+                    $('#progressWidgetMode').html("Progress " + result.raid_progression[raidTier].summary + "<br />" + capitalize(raidTier.replaceAll('-', ' ')) + "<br />");
+                    $('#progressWidget').attr('src', progressWidgetPath);
+                    let progressGraphWidgetPath = String.format(progressGraphWidgetUri, raidTier, "heroic", region, realm, guildName,);
+                    $('#progressGraphWidget').attr('src', progressGraphWidgetPath);
+                } else {
+                    let progressWidgetPath = String.format(progressWidgetUri, raidTier, region, realm, guildName, "normal");
+                    $('#progressWidgetMode').html("Progress " + result.raid_progression[raidTier].summary + "<br />" + capitalize(raidTier.replaceAll('-', ' ')) + "<br />");
+                    $('#progressWidget').attr('src', progressWidgetPath);
+                    let progressGraphWidgetPath = String.format(progressGraphWidgetUri, raidTier, "normal", region, realm, guildName,);
+                    $('#progressGraphWidget').attr('src', progressGraphWidgetPath);
+                }
             }
 
             oldRaidTier.forEach(t => {
-                var text = "<br /><h2>" + capitalize(t.replaceAll('-', ' ')) + " " + result.raid_progression[t].summary + "<h2/>";
-                $("#oldProgressContent").append(text);
-                if (result.raid_progression[t].mythic_bosses_killed > 0) {
-                    let progressWidgetPath = String.format(progressWidgetUri, t, region, realm, guildName, "mythic");
-                    $('#oldProgressContent').append("<iframe src=\"" + progressWidgetPath + "\" width=\"380\" height=\"135\" allowtransparency=\"true\" frameBorder=\"0\"></iframe>");
+                if (result.raid_progression[t] == null) {
+                    $("#oldProgressContent").append("<br /><h2>" + capitalize(t.replaceAll('-', ' ')) + "<h2/><br />Rien à afficher pour ce raid");
                 }
-                else if (result.raid_progression[t].heroic_bosses_killed > 0) {
-                    let progressWidgetPath = String.format(progressWidgetUri, t, region, realm, guildName, "heroic");
-                    $('#oldProgressContent').append("<iframe src=\"" + progressWidgetPath + "\" width=\"380\" height=\"135\" allowtransparency=\"true\" frameBorder=\"0\"></iframe>");
-                } else {
-                    let progressWidgetPath = String.format(progressWidgetUri, t, region, realm, guildName, "normal");
-                    $('#oldProgressContent').append("<iframe src=\"" + progressWidgetPath + "\" width=\"380\" height=\"135\" allowtransparency=\"true\" frameBorder=\"0\"></iframe>");
+                else {
+                    var text = "<br /><h2>" + capitalize(t.replaceAll('-', ' ')) + " " + result.raid_progression[t].summary + "<h2/>";
+                    $("#oldProgressContent").append(text);
+
+                    if (result.raid_progression[t].mythic_bosses_killed > 0) {
+                        let progressWidgetPath = String.format(progressWidgetUri, t, region, realm, guildName, "mythic");
+                        $('#oldProgressContent').append("<iframe src=\"" + progressWidgetPath + "\" width=\"380\" height=\"135\" allowtransparency=\"true\" frameBorder=\"0\"></iframe>");
+                    }
+                    else if (result.raid_progression[t].heroic_bosses_killed > 0) {
+                        let progressWidgetPath = String.format(progressWidgetUri, t, region, realm, guildName, "heroic");
+                        $('#oldProgressContent').append("<iframe src=\"" + progressWidgetPath + "\" width=\"380\" height=\"135\" allowtransparency=\"true\" frameBorder=\"0\"></iframe>");
+                    } else {
+                        let progressWidgetPath = String.format(progressWidgetUri, t, region, realm, guildName, "normal");
+                        $('#oldProgressContent').append("<iframe src=\"" + progressWidgetPath + "\" width=\"380\" height=\"135\" allowtransparency=\"true\" frameBorder=\"0\"></iframe>");
+                    }
                 }
             });
         },
@@ -132,7 +144,7 @@ if (twitchStreamers !== null && twitchStreamers.length) {
     });
     $("#twitchStreamsLinks").append("<br />");
     var rnd = Math.floor(Math.random() * twitchStreamers.length);
-    $("#twitchStreamsLinks").append("<br /><iframe width=\"450\" height=\"250\" allowtransparency=\"true\" frameborder=\"0\" src=\"" + String.format(twitchStreamFrame, twitchStreamers[rnd]) + "\"></iframe>");
+    $("#twitchStreamsLinks").append("<br /><iframe class=\"responsive-iframe-stream\" width=\"450\" height=\"250\" allowtransparency=\"true\" frameborder=\"0\" src=\"" + String.format(twitchStreamFrame, twitchStreamers[rnd]) + "\"></iframe>");
 }
 else {
     $("#twitchStreamsLinks").remove();
