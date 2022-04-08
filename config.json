@@ -3,18 +3,21 @@
     "realm": "Hyjal",
     "region": "eu",
     "paragraphs": [
-        ""
+        "Hello, we are a fun guild for PvE content.",
+        "We love wow."
     ],
     "raidTier": "sepulcher-of-the-first-ones",
     "oldRaidTier": [
         "sanctum-of-domination",
         "castle-nathria"
     ],
-    "youtubeLinks": null,
-    "twitterLinks": null,
-    "facebookLinks": null,
+    "youtubeLinks": "https://www.youtube.com/c/Warcraft/videos",
+    "twitterLinks": "https://twitter.com/Warcraft",
+    "facebookLinks": "https://www.facebook.com/WorldofWarcraft.fr",
     "twitchStreamers": [
-        "LE_GOT"
+        "blizzard",
+        "echo_esports",
+        "wowepicbg"
     ],
-    "discordId": "748699728388161637"
+    "discordId": "113103747126747136"
 }

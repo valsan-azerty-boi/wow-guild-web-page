@@ -11,6 +11,33 @@ const guildRaiderIoUri = "https://raider.io/guilds/{0}/{1}/{2}";
 const twitchStreamUri = "https://www.twitch.tv/{0}";
 const twitchStreamFrame = "https://player.twitch.tv/?channel={0}&enableExtensions=false&muted=true&parent=twitch.tv&player=popout&quality=chunked&volume=0";
 
+function isEmpty(str) {
+    return (!str || str.length === 0);
+}
+
+if (!String.format) {
+    String.format = function (format) {
+        var args = Array.prototype.slice.call(arguments, 1);
+        return format.replace(/{(\d+)}/g, function (match, number) {
+            return typeof args[number] != 'undefined'
+                ? args[number]
+                : match
+                ;
+        });
+    };
+}
+
+const kebabCase = (string) => {
+    return string.replace(/\d+/g, ' ')
+        .split(/ |\B(?=[A-Z])/)
+        .map((word) => word.toLowerCase())
+        .join('-');
+};
+
+function capitalize(sentence) {
+    return sentence && sentence[0].toUpperCase() + sentence.slice(1);
+}
+
 fetch("./config.json")
     .then(response => {
         return response.json();
@@ -28,36 +55,13 @@ fetch("./config.json")
         const twitchStreamers = dataFile.twitchStreamers;
         const discordId = dataFile.discordId;
 
-        let headTitle = "Guilde " + guildName + " (" + region.toUpperCase() + "-" + realm + ") World of Warcraft";
+        let headTitle = "Guild " + guildName + " (" + region.toUpperCase() + "-" + realm + ") World of Warcraft";
         $("meta[property='og:title']").attr("content", headTitle);
         $("meta[name='title']").attr("content", headTitle);
         $(document).prop('title', headTitle);
 
         let bodyTitle = "Guilde &#60;" + guildName + "&#62; <br />" + region.toUpperCase() + " " + realm + " - World of Warcraft";
         $("#bodyTitle").append("<h1>" + bodyTitle + "<h1/>");
-
-        if (!String.format) {
-            String.format = function (format) {
-                var args = Array.prototype.slice.call(arguments, 1);
-                return format.replace(/{(\d+)}/g, function (match, number) {
-                    return typeof args[number] != 'undefined'
-                        ? args[number]
-                        : match
-                        ;
-                });
-            };
-        }
-
-        const kebabCase = (string) => {
-            return string.replace(/\d+/g, ' ')
-                .split(/ |\B(?=[A-Z])/)
-                .map((word) => word.toLowerCase())
-                .join('-');
-        };
-
-        function capitalize(sentence) {
-            return sentence && sentence[0].toUpperCase() + sentence.slice(1);
-        }
 
         $('#guildLinksWowArmory').attr('href', String.format(guildWowArmoryUri, region, kebabCase(realm), kebabCase(guildName)));
         $('#guildLinksWarcraftLogs').attr('href', String.format(guildWarcraftLogsUri, region, kebabCase(realm), guildName));
@@ -70,15 +74,15 @@ fetch("./config.json")
             $("#discordWidgetDiv").remove();
         }
 
-        $('#oldProgressTitle').html("Anciens progress<br />");
+        $('#oldProgressTitle').html("Old progress<br />");
         $(document).ready(function () {
             $.ajax({
                 url: String.format(RaiderIoApiUri, region, realm, guildName),
                 type: "GET",
                 success: function (result) {
                     if (result.raid_progression[raidTier] == null) {
-                        $('#progressWidgetMode').html("Progress non démarré<br />" + capitalize(raidTier.replaceAll('-', ' ')) + "<br />");
-                        $("#progressGraphWidgetDiv").append("Rien à afficher pour l'instant");
+                        $('#progressWidgetMode').html("Progress not started<br />" + capitalize(raidTier.replaceAll('-', ' ')) + "<br />");
+                        $("#progressGraphWidgetDiv").append("Nothing to display here for now");
                     }
                     else {
                         if (result.raid_progression[raidTier].mythic_bosses_killed > 0) {
@@ -105,7 +109,7 @@ fetch("./config.json")
 
                     oldRaidTier.forEach(t => {
                         if (result.raid_progression[t] == null) {
-                            $("#oldProgressContent").append("<br /><h2>" + capitalize(t.replaceAll('-', ' ')) + "<h2/><br />Rien à afficher pour ce raid");
+                            $("#oldProgressContent").append("<br /><h2>" + capitalize(t.replaceAll('-', ' ')) + "<h2/><br />Nothing to display for this raid");
                         }
                         else {
                             var text = "<br /><h2>" + capitalize(t.replaceAll('-', ' ')) + " " + result.raid_progression[t].summary + "<h2/>";
@@ -127,9 +131,8 @@ fetch("./config.json")
                 },
                 error: function (error) {
                     console.log(error);
-                    $("#progressWidgetDiv").append("<span style=\"color:red\"></span>");
-                    $("#progressGraphWidgetDiv").append("<span style=\"color:red\"></span>");
-                    $("#oldProgressDiv").append("<span style=\"color:red\"></span>");
+                    $("#progressGraphWidgetDiv").append("<span style=\"color:red\">Error</span>");
+                    $("#oldProgressDiv").append("<span style=\"color:red\">Error</span>");
                 }
             });
         });
@@ -143,16 +146,19 @@ fetch("./config.json")
             $("#bodyParagraphs").remove();
         }
 
-        if (youtubeLinks !== null || twitterLinks !== null || facebookLinks !== null) {
+        var noSocials = true;
+        if (!isEmpty(youtubeLinks) || !isEmpty(twitterLinks) || !isEmpty(facebookLinks)) {
 
-            if (youtubeLinks !== null)
+            if (!isEmpty(youtubeLinks))
                 $("#socialLinks").append("<a class=\"font-warcraft\" href=\"" + youtubeLinks + "\" target=\"_blank\"><img src=\"img/youtube-icon.png\" alt=\"Youtube\"/>&nbsp;Youtube</a>&nbsp;");
 
-            if (twitterLinks !== null)
+            if (!isEmpty(twitterLinks))
                 $("#socialLinks").append("<a class=\"font-warcraft\" href=\"" + twitterLinks + "\" target=\"_blank\"><img src=\"img/twitter-icon.png\" alt=\"Twitter\"/>&nbsp;Twitter</a>&nbsp;");
 
-            if (facebookLinks !== null)
+            if (!isEmpty(facebookLinks))
                 $("#socialLinks").append("<a class=\"font-warcraft\" href=\"" + facebookLinks + "\" target=\"_blank\"><img src=\"img/facebook-icon.png\" alt=\"Facebook\"/>&nbsp;Facebook</a>&nbsp;");
+
+            noSocials = false;
         }
 
         if (twitchStreamers !== null && twitchStreamers.length) {
@@ -162,10 +168,15 @@ fetch("./config.json")
             $("#twitchStreamsLinks").append("<br />");
             var rnd = Math.floor(Math.random() * twitchStreamers.length);
             $("#twitchStreamsLinks").append("<br /><iframe class=\"responsive-iframe-stream\" width=\"450\" height=\"250\" allowtransparency=\"true\" frameborder=\"0\" src=\"" + String.format(twitchStreamFrame, twitchStreamers[rnd]) + "\"></iframe>");
+
+            noSocials = false;
         }
         else {
             $("#twitchStreamsLinks").remove();
         }
+
+        if (noSocials)
+            $("#socialLinks").append("Nothing to display here");
     });
 
 document.getElementById("year").innerHTML = new Date().getFullYear();
