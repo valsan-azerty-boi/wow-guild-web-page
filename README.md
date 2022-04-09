@@ -1,4 +1,7 @@
 # wow-guild-web-page
+[![License](https://img.shields.io/github/license/valsan-azerty-boi/wow-guild-web-page.svg)](https://github.com/valsan-azerty-boi/wow-guild-web-page/blob/master/LICENSE)
+[![Commit](https://img.shields.io/github/last-commit/valsan-azerty-boi/wow-guild-web-page.svg)](https://github.com/valsan-azerty-boi/wow-guild-web-page/commits/master)				
+
 ## An easy and simple web page to setup for World of Warcraft guilds
 
 First, I created this web page for my own World of Warcraft raiding guild &lt;Gentil péon> from Hyjal realm (EU) => https://gentilpeon.github.io/
